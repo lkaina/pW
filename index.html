@@ -18,10 +18,8 @@
   <!-- universal css -->
 </head>
 
-<body>
-
-  <!-- initial app view from ./app.tpl.html -->
-  <div class="app-container" ui-view></div>
+<body ng-app="pwApp" ng-controller="AppCtrl as app">
+  <pw-table data="app.data.contactsList"></pw-table>
 
   <!-- jquery -->
   <script type="text/javascript" src="bower_components/jquery/dist/jquery.js"></script>
@@ -40,7 +38,7 @@
 
 
   <!-- local files -->
-  <script type="text/javascript" src="http://localhost:3000/"></script>
+  <script type="text/javascript" src="http://localhost:3000/build.js"></script>
 
   <!-- live reload js file -->
   <script src="//localhost:35729/livereload.js"></script>

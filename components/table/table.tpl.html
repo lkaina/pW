@@ -1,0 +1,24 @@
+<div class="pw-table">
+  <header>
+    <button ng-click="table.cbList.addContact()">Add Contact</button>
+  </header>
+  <div class="table">
+    <div class="table-labels">
+      <div ng-repeat="label in table.tableData.columns">
+         <h3>{{ label }}</h3>
+      </div>
+    </div>
+    <div class="table-content">
+      <div ng-repeat="item in table.content">
+        <div ng-if="item.type === 'directive'">
+          <pw-assign item="item"></pw>
+        </div>
+        <div ng-if="item.type === 'text'">
+          <p class="table-cell-text">{{ item.text }}</p>
+        </div>
+        <div ng-if="item.type === 'button'">
+          <button ng-click="item.cb()">{{ item.label }}</button>
+      </div>
+    </div>
+  </div>
+</div>

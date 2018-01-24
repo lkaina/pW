@@ -3,24 +3,19 @@
 
   angular
     .module('pwComponents')
-    .directive('pwTable', pwTable);
+    .directive('pwAssign', pwAssign);
 
-  pwTable.$inject = ['$compile', 'dataService'];
+  pwAssign.$inject = ['$compile'];
 
-  function pwTable($compile, dataService) {
+  function pwAssign($compile) {
 
     var directive = {
       restrict: 'EA',
-      templateUrl: 'http://localhost:3000/components/table/table.tpl.html',
+      template: '',
       compile: compileFn,
       scope: {
-        cbList: '=',
-        tableData: '=',
-        label: '@'
-      },
-      controller: 'TableCtrl',
-      controllerAs: 'table',
-      bindToController: true
+        item: '='
+      }
     };
 
     return directive;
@@ -37,7 +32,8 @@
       };
 
       function postLink(scope, element, attrs) {
-
+        var template = '<pw-' + scope.item.directive + ' item="item"></pw-' + scope.item.directive + '>';
+        element.replaceWith($compile(template)(scope));
       };
     };
   };

@@ -1,9 +1,9 @@
 module.exports = function(grunt) {
 
-  var repoPath = '/Users/kaina_l/workfolder/ghix/ghix-web/src/main/webapp';
-  var scriptsPath = '/resources/js/cap/affAdminManager';
-  var templatesPath = '/resources/js/cap/affAdminManager';
-  var cssPath = '/resources/js/cap/affAdminManager';
+  var repoPath = '/Users/kaina_l/Coding/prosperWorks/pW';
+  var scriptsPath = '/';
+  var templatesPath = '/';
+  var cssPath = '/';
 
   // configure the tasks
   grunt.initConfig({
