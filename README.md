@@ -5,16 +5,16 @@
 ## Get Started
 
 1.  Install dependencies using npm & bower:
-  ```
-    npm install
+```
+npm install
 ```
 ```
-    bower install
-  ```
+bower install
+```
 2.  Run simple node server (server.js) and update port info if needed.
-  ```
-  node server.js
-  ```
+```
+node server.js
+```
 3.  Open http://localhost:3000/ in browser.
 
 
