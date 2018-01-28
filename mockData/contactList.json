@@ -3,6 +3,7 @@
     {
       "id": 1,
       "name": "Amanda Mooney",
+      "company": "Trestle Glen Partners",
       "title": "Managing Director",
       "group": "People, Leads, and Companies",
       "email": "amooney@trestleglenpartners.com"
@@ -10,7 +11,40 @@
     {
       "id": 2,
       "name": "April Rose Gregorio",
+      "company": "PNC",
       "title": "Mortgage Loan Officer",
+      "group": "People, Leads, and Companies",
+      "email": "aaregorio@pnc.com"
+    },
+    {
+      "id": 3,
+      "name": "Bonnie Wong",
+      "company": "PNC",
+      "title": "Loan Officer Assistant",
+      "group": "People, Leads, and Companies",
+      "email": "bwong@pnc.com"
+    },
+    {
+      "id": 4,
+      "name": "Kathy Chang",
+      "company": "Bank of America",
+      "title": "AVP, Wealth Management Lending Officer",
+      "group": "People, Leads, and Companies",
+      "email": "kchange@boa.com"
+    },
+    {
+      "id": 5,
+      "name": "April Rose Gregorio",
+      "company": "Sotheby's International Realty",
+      "title": "The East Bay Team / Realtor",
+      "group": "People, Leads, and Companies",
+      "email": "rjones@sotheby.com"
+    },
+    {
+      "id": 6,
+      "name": "Alison Inglis",
+      "company": "Alasto Architects",
+      "title": "Director of Finance",
       "group": "People, Leads, and Companies",
       "email": "aaregorio@pnc.com"
     }

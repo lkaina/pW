@@ -17,18 +17,27 @@
 
     $http(options)
       .then(function(response) {
-        dataService.allData.contactsList = _setupColumns();
+        dataService.allData.contactsList = response.data.contacts;
+        _setupContacts(dataService.allData.contactsList);
       })
       .catch(function(err) {
         console.log('Error getting data.');
       });
 
-    function _setupColumns() {
-      dataService.allData.contactsList.columns = [
+    function _setupContacts(contactsList) {
+      for (let i = 0; i < contactsList.length; i++) {
+        let contact = contactsList[i];
+        contact.contact = contact.name;
+        if (contact.company) contact.contact += ' at ' + contact.company;
+        if (contact.email) contact.contact += '\n' + contact.email;
+      }
+      dataService.allData.contactsLayout = [
         {
           "label": 'Contacts',
           "type": 'directive',
-          "key": 'contact'
+          "dirName": 'contact-tile',
+          "dirArgs": [
+          ]
         },
         {
           "label": 'Title',
@@ -43,12 +52,14 @@
         {
           "label": '',
           "type": 'button',
-          "cb": 'editContact'
+          "cb": 'editContact',
+          "class": "glyphicon glyphicon-pencil"
         },
         {
           "label": '',
           "type": 'button',
-          "cb": 'deleteContact'
+          "cb": 'deleteContact',
+          "class": "glyphicon glyphicon-trash"
         }
       ];
     };
@@ -112,17 +123,23 @@
     app.addContact = addContact;
     app.deleteContact = deleteContact;
     app.editContact = editContact;
+    app.saveContact = saveContact;
+
+    app.tableCbList = {
+      addContact: app.addContact,
+      deleteContact: app.deleteContact,
+      editContact: app.editContact
+    };
+
+    app.data = dataService;
 
     function addContact() {
 
       var modalProperties = {
         animation: true,
         backdrop: 'static',
-        template: '<pw-add-contact></pw-add-contact>',
-        controller: 'AppCtrl',
-        controllerAs: 'addContact',
-        bindToController: true,
-        keyboard: false,
+        template: '<pw-add-contact save-contact="app.saveContact(contactInfo)"></pw-add-contact>',
+        keyboard: true,
         size: 'lg',
         windowClass: 'add-contact'
       };
@@ -138,10 +155,7 @@
       var modalProperties = {
         animation: true,
         backdrop: 'static',
-        template: '<pw-add-contact contact="addContact.contactInfo"></pw-add-contact>',
-        controller: 'AppCtrl',
-        controllerAs: 'addContact',
-        bindToController: true,
+        template: '<pw-add-contact save-contact="app.saveContact(contactInfo)" contact-info="addContact.contactInfo"></pw-add-contact>',
         keyboard: false,
         resolve: {
           contactInfo: contact
@@ -150,10 +164,66 @@
         windowClass: 'add-contact'
       };
     };
+
+    function saveContact(contactInfo) {
+      dataService.saveContact(contactInfo)
+        .then(function(response) {
+        response.contact = response.name;
+        if (response.company) response.contact += ' at ' + response.company;
+        if (response.email) response.contact += '\n' + response.email;
+          dataService.allData.contactsList.push(response);
+        })
+        .catch(function(error) {
+          console.log('error saving contact info: ', error);
+        })
+    };
   };
 })();
 
 
+(function() {
+  'use strict'
+
+  angular
+    .module('pwComponents')
+    .directive('pwAddContact', pwAddContact);
+
+  pwAddContact.$inject = ['$compile', 'dataService'];
+
+  function pwAddContact($compile, dataService) {
+
+    var directive = {
+      restrict: 'EA',
+      templateUrl: 'http://localhost:3000/components/addContact/addContact.tpl.html',
+      compile: compileFn,
+      scope: {
+        contactInfo: '=',
+        saveContact: '&'
+      },
+      controller: function() {},
+      controllerAs: 'add',
+      bindToController: true
+    };
+
+    return directive;
+
+    function compileFn(tElement, tAttrs) {
+
+      return {
+        pre: preLink,
+        post: postLink
+      };
+
+      function preLink(scope, element, attrs) {
+
+      };
+
+      function postLink(scope, element, attrs) {
+        scope.add.data = dataService;
+      };
+    };
+  };
+})();
 
 
 (function() {
@@ -172,7 +242,9 @@
       template: '',
       compile: compileFn,
       scope: {
-        item: '='
+        type: '@',
+        args: '=',
+        data: '='
       }
     };
 
@@ -190,7 +262,11 @@
       };
 
       function postLink(scope, element, attrs) {
-        var template = '<pw-' + scope.item.directive + ' item="item"></pw-' + scope.item.directive + '>';
+        let argsList = '';
+        for (let i = 0; i < scope.args.length; i++) {
+          argsList += ' ' + scope.args[i].attr + '="' + scope.args[i].value;
+        }
+        var template = '<pw-' + scope.type + argsList + ' "></pw-' + scope.type + '>';
         element.replaceWith($compile(template)(scope));
       };
     };
@@ -255,8 +331,8 @@
       compile: compileFn,
       scope: {
         cbList: '=',
-        tableData: '=',
-        label: '@'
+        data: '=',
+        layout: '='
       },
       controller: 'TableCtrl',
       controllerAs: 'table',

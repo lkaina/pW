@@ -15,8 +15,8 @@
       compile: compileFn,
       scope: {
         cbList: '=',
-        tableData: '=',
-        label: '@'
+        data: '=',
+        layout: '='
       },
       controller: 'TableCtrl',
       controllerAs: 'table',

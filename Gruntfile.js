@@ -1,9 +1,9 @@
 module.exports = function(grunt) {
 
-  var repoPath = '/Users/kaina_l/Coding/prosperWorks/pW';
-  var scriptsPath = '/';
-  var templatesPath = '/';
-  var cssPath = '/';
+  var repoPath = '/Users/leig/Coding/prosperWorks/pW';
+  var scriptsPath = '';
+  var templatesPath = '';
+  var cssPath = '';
 
   // configure the tasks
   grunt.initConfig({
@@ -30,17 +30,17 @@ module.exports = function(grunt) {
 
     watch: {
       scripts: {
-        files: [ '!**/build.js', '!**/node_modules/**', '!**/bower_components/**', '!**/Gruntfile.js', '<%= paths.repo %><%= paths.scripts %>/**/*.js'],
+        files: [ '!**/build.js', '!**/node_modules/**', '!**/bower_components/**', '!**/Gruntfile.js', '<%= paths.repo %>/**/*.js'],
         tasks: [ 'concat:js' ]
       },
-      templates: {
-        files: [ '**/*.html', '!**/node_modules/**', '!**/bower_components/**'],
-        tasks: [ ]
-      },
-      css: {
-        files: [ '!**/build.css', '!**/node_modules/**', '!**/bower_components/**', '<%= paths.repo %><%= paths.scripts %>/**/*.css'],
-        tasks: [ 'concat:css' ]
-      },
+      // templates: {
+      //   files: [ '**/*.html', '!**/node_modules/**', '!**/bower_components/**'],
+      //   tasks: [ ]
+      // },
+      // css: {
+      //   files: [ '!**/build.css', '!**/node_modules/**', '!**/bower_components/**', '**/*.css'],
+      //   tasks: [ 'concat:css' ]
+      // },
       options: {
         nospawn: true,
         livereload: true
@@ -50,13 +50,17 @@ module.exports = function(grunt) {
     connect: {
       server: {
         options: {
-          port: 4000,
+          port: 4001,
           base: 'build',
           hostname: '*'
         }
       }
     }
 
+  });
+
+  grunt.event.on('watch', function(action, filepath, target) {
+    grunt.log.writeln(target + ': ' + filepath + ' has ' + action);
   });
 
   // load the tasks

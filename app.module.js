@@ -17,18 +17,27 @@
 
     $http(options)
       .then(function(response) {
-        dataService.allData.contactsList = _setupColumns();
+        dataService.allData.contactsList = response.data.contacts;
+        _setupContacts(dataService.allData.contactsList);
       })
       .catch(function(err) {
         console.log('Error getting data.');
       });
 
-    function _setupColumns() {
-      dataService.allData.contactsList.columns = [
+    function _setupContacts(contactsList) {
+      for (let i = 0; i < contactsList.length; i++) {
+        let contact = contactsList[i];
+        contact.contact = contact.name;
+        if (contact.company) contact.contact += ' at ' + contact.company;
+        if (contact.email) contact.contact += '\n' + contact.email;
+      }
+      dataService.allData.contactsLayout = [
         {
           "label": 'Contacts',
           "type": 'directive',
-          "key": 'contact'
+          "dirName": 'contact-tile',
+          "dirArgs": [
+          ]
         },
         {
           "label": 'Title',
@@ -43,12 +52,14 @@
         {
           "label": '',
           "type": 'button',
-          "cb": 'editContact'
+          "cb": 'editContact',
+          "class": "glyphicon glyphicon-pencil"
         },
         {
           "label": '',
           "type": 'button',
-          "cb": 'deleteContact'
+          "cb": 'deleteContact',
+          "class": "glyphicon glyphicon-trash"
         }
       ];
     };

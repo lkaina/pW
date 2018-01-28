@@ -14,7 +14,9 @@
       template: '',
       compile: compileFn,
       scope: {
-        item: '='
+        type: '@',
+        args: '=',
+        data: '='
       }
     };
 
@@ -32,7 +34,11 @@
       };
 
       function postLink(scope, element, attrs) {
-        var template = '<pw-' + scope.item.directive + ' item="item"></pw-' + scope.item.directive + '>';
+        let argsList = '';
+        for (let i = 0; i < scope.args.length; i++) {
+          argsList += ' ' + scope.args[i].attr + '="' + scope.args[i].value;
+        }
+        var template = '<pw-' + scope.type + argsList + ' "></pw-' + scope.type + '>';
         element.replaceWith($compile(template)(scope));
       };
     };

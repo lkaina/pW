@@ -90,9 +90,6 @@ var pullData = function(htmlUrl) {
 var getFile = function(localPath, response, mimeType) {
   fs.readFile(localPath, function(err, contents) {
     if (!err) {
-      console.log("localPath: ", localPath);
-      console.log("response: ", response);
-      console.log("mimeType: ", mimeType);
       response.setHeader("Content-Length", contents.length);
       response.setHeader("Content-Type", mimeType);
       response.setHeader("Access-Control-Allow-Origin", 'http://localhost:8282');
