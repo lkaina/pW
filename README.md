@@ -1,4 +1,4 @@
-#AngularJS Simple Component Library/Framework
+# AngularJS Simple Component Library/Framework
 
 **This project is a quick conceptual exercise in designing and building out a Component Library/Framework using AngularJS.**
 
