@@ -25,18 +25,16 @@
       });
 
     function _setupContacts(contactsList) {
-      for (let i = 0; i < contactsList.length; i++) {
-        let contact = contactsList[i];
-        contact.contact = contact.name;
-        if (contact.company) contact.contact += ' at ' + contact.company;
-        if (contact.email) contact.contact += '\n' + contact.email;
-      }
       dataService.allData.contactsLayout = [
         {
           "label": 'Contacts',
           "type": 'directive',
           "dirName": 'contact-tile',
           "dirArgs": [
+            {
+              attr: 'contact-info',
+              value: 'data'
+            }
           ]
         },
         {

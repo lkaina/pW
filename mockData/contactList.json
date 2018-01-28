@@ -6,7 +6,8 @@
       "company": "Trestle Glen Partners",
       "title": "Managing Director",
       "group": "People, Leads, and Companies",
-      "email": "amooney@trestleglenpartners.com"
+      "email": "amooney@trestleglenpartners.com",
+      "imgUrl": "http://lorempixel.com/40/40/abstract"
     },
     {
       "id": 2,
@@ -14,7 +15,8 @@
       "company": "PNC",
       "title": "Mortgage Loan Officer",
       "group": "People, Leads, and Companies",
-      "email": "aaregorio@pnc.com"
+      "email": "aaregorio@pnc.com",
+      "imgUrl": "http://lorempixel.com/40/40/animals"
     },
     {
       "id": 3,
@@ -22,7 +24,8 @@
       "company": "PNC",
       "title": "Loan Officer Assistant",
       "group": "People, Leads, and Companies",
-      "email": "bwong@pnc.com"
+      "email": "bwong@pnc.com",
+      "imgUrl": "http://lorempixel.com/40/40/sports"
     },
     {
       "id": 4,
@@ -30,7 +33,8 @@
       "company": "Bank of America",
       "title": "AVP, Wealth Management Lending Officer",
       "group": "People, Leads, and Companies",
-      "email": "kchange@boa.com"
+      "email": "kchange@boa.com",
+      "imgUrl": "http://lorempixel.com/40/40/city"
     },
     {
       "id": 5,
@@ -38,7 +42,8 @@
       "company": "Sotheby's International Realty",
       "title": "The East Bay Team / Realtor",
       "group": "People, Leads, and Companies",
-      "email": "rjones@sotheby.com"
+      "email": "rjones@sotheby.com",
+      "imgUrl": "http://lorempixel.com/40/40/food"
     },
     {
       "id": 6,
@@ -46,7 +51,8 @@
       "company": "Alasto Architects",
       "title": "Director of Finance",
       "group": "People, Leads, and Companies",
-      "email": "aaregorio@pnc.com"
+      "email": "aaregorio@pnc.com",
+      "imgUrl": "http://lorempixel.com/40/40/nature"
     }
   ]
 }

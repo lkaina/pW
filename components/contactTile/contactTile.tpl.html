@@ -1,7 +1,13 @@
 <div class="contact-tile">
   <div class="contact-icon">
+    <img class="contact-img" ng-src="{{ cTile.contactInfo.imgUrl }}"></img>
   </div>
   <div class="contact-info">
-    <span>{{ cTile.info }}</span>
+    <div class="contact-name">
+      {{ cTile.contactInfo.name }} at {{ cTile.contactInfo.company }}
+    </div>
+    <div class="contact-email">
+      {{ cTile.contactInfo.email }}
+    </div>
   </div>
 </div>

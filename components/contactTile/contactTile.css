@@ -1,0 +1,19 @@
+.contact-tile {
+  display: flex;
+  flex-flow: row;
+}
+
+.contact-icon, .contact-info {
+  flex: 0 1 auto;
+  align-self: center;
+}
+
+.contact-icon img {
+  min-height: 40px;
+  width: auto;
+  border-radius: 100%;
+}
+
+.contact-info {
+  padding-left: 10px;
+}

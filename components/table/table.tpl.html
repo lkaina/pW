@@ -7,7 +7,7 @@
     </thead>
     <tbody class="table-content">
       <tr ng-repeat="row in table.data" ng-init="rowNum = $index">
-        <td ng-repeat="col in table.layout" ng-init="colNum = $index">
+        <td ng-repeat="col in ::table.layout" ng-init="colNum = $index">
           <div ng-if="table.layout[colNum].type === 'directive'">
             <pw-assign type="{{ table.layout[colNum].dirName }}" args="table.layout[colNum].dirArgs" data="row"></pw>
           </div>

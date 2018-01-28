@@ -36,9 +36,9 @@
       function postLink(scope, element, attrs) {
         let argsList = '';
         for (let i = 0; i < scope.args.length; i++) {
-          argsList += ' ' + scope.args[i].attr + '="' + scope.args[i].value;
+          argsList += ' ' + scope.args[i].attr + '="' + scope.args[i].value + '"';
         }
-        var template = '<pw-' + scope.type + argsList + ' "></pw-' + scope.type + '>';
+        var template = '<pw-' + scope.type + argsList + '></pw-' + scope.type + '>';
         element.replaceWith($compile(template)(scope));
       };
     };
