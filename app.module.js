@@ -65,10 +65,6 @@
           "dirName": 'button',
           "dirArgs": [
             {
-              attr: 'cb',
-              value: 'table.cbList.deleteContact(data)'
-            },
-            {
               attr: 'class-list',
               value: 'glyphicon glyphicon-trash'
             }
@@ -79,26 +75,3 @@
     };
   };
 })();
-
-/*
-
-{
-  "contacts": [
-    {
-      "id": 1,
-      "name": "Amanda Mooney",
-      "title": "Managing Director",
-      "group": "People, Leads, and Companies",
-      "email": "amooney@trestleglenpartners.com"
-    },
-    {
-      "id": 2,
-      "name": "April Rose Gregorio",
-      "title": "Mortgage Loan Officer",
-      "group": "People, Leads, and Companies",
-      "email": "aaregorio@pnc.com"
-    }
-  ]
-}
-
-*/

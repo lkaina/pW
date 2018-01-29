@@ -65,10 +65,6 @@
           "dirName": 'button',
           "dirArgs": [
             {
-              attr: 'cb',
-              value: 'table.cbList.deleteContact(data)'
-            },
-            {
               attr: 'class-list',
               value: 'glyphicon glyphicon-trash'
             }
@@ -79,29 +75,6 @@
     };
   };
 })();
-
-/*
-
-{
-  "contacts": [
-    {
-      "id": 1,
-      "name": "Amanda Mooney",
-      "title": "Managing Director",
-      "group": "People, Leads, and Companies",
-      "email": "amooney@trestleglenpartners.com"
-    },
-    {
-      "id": 2,
-      "name": "April Rose Gregorio",
-      "title": "Mortgage Loan Officer",
-      "group": "People, Leads, and Companies",
-      "email": "aaregorio@pnc.com"
-    }
-  ]
-}
-
-*/
 
 
 (function() {
@@ -161,7 +134,9 @@
     };
 
     function deleteContact(contact) {
-      //search for contact
+      for (let i = 0; i < app.data.allData.contactsList.length; i++) {
+        if (contact.id === app.data.allData.contactsList[i].id) return app.data.allData.contactsList.splice(i, 1);
+      }
       //delete contact dataService.contactList
     };
 
@@ -307,7 +282,7 @@
         }
         if (scope.cb) {
           scope.cb = scope.cb();
-          argsList += ' cb="cb()"';
+          argsList += ' cb="cb(data)"';
         }
         var template = '<pw-' + scope.type + argsList + '></pw-' + scope.type + '>';
         element.replaceWith($compile(template)(scope));
@@ -470,6 +445,21 @@
 
   angular
     .module('pwComponents')
+    .controller('InputCtrl', InputCtrl);
+
+  InputCtrl.$inject = ['dataService', 'validationService'];
+
+  function InputCtrl(dataService, validationService) {
+    var input = this;
+  };
+})();
+
+
+(function() {
+  'use strict'
+
+  angular
+    .module('pwComponents')
     .directive('pwTextInput', pwTextInput);
 
   pwTextInput.$inject = ['$compile', 'dataService'];
@@ -481,11 +471,12 @@
       templateUrl: 'http://localhost:3000/components/library/textInput/textInput.tpl.html',
       compile: compileFn,
       scope: {
+        default: '@',
         name: '@',
-        inline: '@',
         label: '@',
         required: '@',
-        width: '@'
+        model: '@',
+        classList: '@'
       },
       controller: 'InputCtrl',
       controllerAs: 'input',
@@ -495,6 +486,11 @@
     return directive;
 
     function compileFn(tElement, tAttrs) {
+
+      let el = tElement.find('input');
+
+      el.attr('ng-model', tAttrs.model);
+      if (tAttrs.required) el.attr('required', true);
 
       return {
         pre: preLink,

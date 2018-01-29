@@ -2,9 +2,18 @@
   <h3 class="modal-title" id="modal-title">Add Contact</h3>
 </div>
 <div class="modal-body" id="modal-body">
+  <form name="addContactForm">
+    <div class="form-group">
+      <pw-text-input label="Name" name="add-contact-name" default="Enter Name" required="true" model="add.newContact.name"></pw-text-input>
+      <pw-text-input label="Company" name="add-contact-company" default="Enter Company" required="true" model="add.newContact.company"></pw-text-input>
+      <pw-text-input label="Title" name="add-contact-title" default="Enter Title" model="add.newContact.company"></pw-text-input>
+      <pw-text-input label="Email" name="add-contact-email" default="Enter Email" required="true" model="add.newContact.company"></pw-text-input>
+      <pw-text-input label="Group" name="add-contact-group" default="Enter Group" model="add.newContact.company"></pw-text-input>
+    </div>
+  </form>
 </div>
 <div class="modal-footer">
-  <button class="btn btn-primary" type="button" ng-click="add.saveContact()">Save</button>
+  <button class="btn btn-primary" type="button" ng-disabled="addContactForm.$invalid" ng-click="add.saveContact()">Save</button>
   <button class="btn btn-warning" type="button" ng-click="add.cancel()">Cancel</button>
 </div>
 

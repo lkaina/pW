@@ -41,7 +41,7 @@
         }
         if (scope.cb) {
           scope.cb = scope.cb();
-          argsList += ' cb="cb()"';
+          argsList += ' cb="cb(data)"';
         }
         var template = '<pw-' + scope.type + argsList + '></pw-' + scope.type + '>';
         element.replaceWith($compile(template)(scope));

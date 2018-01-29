@@ -3,6 +3,9 @@ header {
 }
 
 
+.add-contact .form-group .pw-text-input {
+  margin-bottom: 25px;
+}
 
 
 .pw-button .glyphicon {

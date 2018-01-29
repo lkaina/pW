@@ -14,11 +14,12 @@
       templateUrl: 'http://localhost:3000/components/library/textInput/textInput.tpl.html',
       compile: compileFn,
       scope: {
+        default: '@',
         name: '@',
-        inline: '@',
         label: '@',
         required: '@',
-        width: '@'
+        model: '@',
+        classList: '@'
       },
       controller: 'InputCtrl',
       controllerAs: 'input',
@@ -28,6 +29,11 @@
     return directive;
 
     function compileFn(tElement, tAttrs) {
+
+      let el = tElement.find('input');
+
+      el.attr('ng-model', tAttrs.model);
+      if (tAttrs.required) el.attr('required', true);
 
       return {
         pre: preLink,

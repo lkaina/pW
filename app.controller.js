@@ -37,7 +37,9 @@
     };
 
     function deleteContact(contact) {
-      //search for contact
+      for (let i = 0; i < app.data.allData.contactsList.length; i++) {
+        if (contact.id === app.data.allData.contactsList[i].id) return app.data.allData.contactsList.splice(i, 1);
+      }
       //delete contact dataService.contactList
     };
 
