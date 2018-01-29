@@ -16,7 +16,8 @@
       scope: {
         type: '@',
         args: '=',
-        data: '='
+        data: '=',
+        cb: '&'
       }
     };
 
@@ -37,6 +38,10 @@
         let argsList = '';
         for (let i = 0; i < scope.args.length; i++) {
           argsList += ' ' + scope.args[i].attr + '="' + scope.args[i].value + '"';
+        }
+        if (scope.cb) {
+          scope.cb = scope.cb();
+          argsList += ' cb="cb()"';
         }
         var template = '<pw-' + scope.type + argsList + '></pw-' + scope.type + '>';
         element.replaceWith($compile(template)(scope));

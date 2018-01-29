@@ -49,15 +49,31 @@
         },
         {
           "label": '',
-          "type": 'button',
-          "cb": 'editContact',
-          "class": "glyphicon glyphicon-pencil"
+          "type": 'directive',
+          "dirName": 'button',
+          "dirArgs": [
+            {
+              attr: 'class-list',
+              value: 'glyphicon glyphicon-pencil'
+            }
+          ],
+          "cb": 'editContact'
         },
         {
           "label": '',
-          "type": 'button',
-          "cb": 'deleteContact',
-          "class": "glyphicon glyphicon-trash"
+          "type": 'directive',
+          "dirName": 'button',
+          "dirArgs": [
+            {
+              attr: 'cb',
+              value: 'table.cbList.deleteContact(data)'
+            },
+            {
+              attr: 'class-list',
+              value: 'glyphicon glyphicon-trash'
+            }
+          ],
+          "cb": 'deleteContact'
         }
       ];
     };
@@ -161,6 +177,7 @@
         size: 'lg',
         windowClass: 'add-contact'
       };
+      var modalInstance = $uibModal.open(modalProperties);
     };
 
     function saveContact(contactInfo) {
@@ -183,6 +200,29 @@
   'use strict'
 
   angular
+    .module('pwApp')
+    .service('dataService', dataService);
+
+  dataService.$inject = [];
+
+  function dataService() {
+    var svc = this;
+
+    svc.allData = {};
+
+    _init();
+
+    function _init() {
+    };
+
+  };
+})();
+
+
+(function() {
+  'use strict'
+
+  angular
     .module('pwComponents')
     .directive('pwAddContact', pwAddContact);
 
@@ -192,7 +232,7 @@
 
     var directive = {
       restrict: 'EA',
-      templateUrl: 'http://localhost:3000/components/addContact/addContact.tpl.html',
+      templateUrl: 'http://localhost:3000/components/library/addContact/addContact.tpl.html',
       compile: compileFn,
       scope: {
         contactInfo: '=',
@@ -242,7 +282,8 @@
       scope: {
         type: '@',
         args: '=',
-        data: '='
+        data: '=',
+        cb: '&'
       }
     };
 
@@ -264,8 +305,55 @@
         for (let i = 0; i < scope.args.length; i++) {
           argsList += ' ' + scope.args[i].attr + '="' + scope.args[i].value + '"';
         }
+        if (scope.cb) {
+          scope.cb = scope.cb();
+          argsList += ' cb="cb()"';
+        }
         var template = '<pw-' + scope.type + argsList + '></pw-' + scope.type + '>';
         element.replaceWith($compile(template)(scope));
+      };
+    };
+  };
+})();
+
+
+(function() {
+  'use strict'
+
+  angular
+    .module('pwComponents')
+    .directive('pwButton', pwButton);
+
+  pwButton.$inject = ['$compile'];
+
+  function pwButton($compile) {
+
+    var directive = {
+      restrict: 'EA',
+      templateUrl: 'http://localhost:3000/components/library/button/button.tpl.html',
+      compile: compileFn,
+      scope: {
+        label: '@',
+        classList: '@',
+        cb: '&'
+      }
+    };
+
+    return directive;
+
+    function compileFn(tElement, tAttrs) {
+
+      return {
+        pre: preLink,
+        post: postLink
+      };
+
+      function preLink(scope, element, attrs) {
+
+      };
+
+      function postLink(scope, element, attrs) {
+
       };
     };
   };
@@ -285,7 +373,7 @@
 
     var directive = {
       restrict: 'EA',
-      templateUrl: 'http://localhost:3000/components/contactTile/contactTile.tpl.html',
+      templateUrl: 'http://localhost:3000/components/library/contactTile/contactTile.tpl.html',
       compile: compileFn,
       scope: {
         contactInfo: '='
@@ -321,29 +409,6 @@
 
   angular
     .module('pwApp')
-    .service('dataService', dataService);
-
-  dataService.$inject = [];
-
-  function dataService() {
-    var svc = this;
-
-    svc.allData = {};
-
-    _init();
-
-    function _init() {
-    };
-
-  };
-})();
-
-
-(function() {
-  'use strict'
-
-  angular
-    .module('pwApp')
     .controller('TableCtrl', TableCtrl);
 
   TableCtrl.$inject = ['dataService', 'validationService', '$uibModal'];
@@ -367,10 +432,10 @@
 
     var directive = {
       restrict: 'EA',
-      templateUrl: 'http://localhost:3000/components/table/table.tpl.html',
+      templateUrl: 'http://localhost:3000/components/library/table/table.tpl.html',
       compile: compileFn,
       scope: {
-        cbList: '=',
+        cbList: '&',
         data: '=',
         layout: '='
       },
@@ -413,7 +478,7 @@
 
     var directive = {
       restrict: 'EA',
-      templateUrl: 'http://localhost:3000/components/textInput/textInput.tpl.html',
+      templateUrl: 'http://localhost:3000/components/library/textInput/textInput.tpl.html',
       compile: compileFn,
       scope: {
         name: '@',

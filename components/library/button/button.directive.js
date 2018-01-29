@@ -3,22 +3,21 @@
 
   angular
     .module('pwComponents')
-    .directive('pwContactTile', pwContactTile);
+    .directive('pwButton', pwButton);
 
-  pwContactTile.$inject = ['$compile', 'dataService'];
+  pwButton.$inject = ['$compile'];
 
-  function pwContactTile($compile, dataService) {
+  function pwButton($compile) {
 
     var directive = {
       restrict: 'EA',
-      templateUrl: 'http://localhost:3000/components/contactTile/contactTile.tpl.html',
+      templateUrl: 'http://localhost:3000/components/library/button/button.tpl.html',
       compile: compileFn,
       scope: {
-        contactInfo: '='
-      },
-      controller: function(){},
-      controllerAs: 'cTile',
-      bindToController: true
+        label: '@',
+        classList: '@',
+        cb: '&'
+      }
     };
 
     return directive;

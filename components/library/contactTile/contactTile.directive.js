@@ -3,25 +3,21 @@
 
   angular
     .module('pwComponents')
-    .directive('pwTextInput', pwTextInput);
+    .directive('pwContactTile', pwContactTile);
 
-  pwTextInput.$inject = ['$compile', 'dataService'];
+  pwContactTile.$inject = ['$compile', 'dataService'];
 
-  function pwTextInput($compile, dataService) {
+  function pwContactTile($compile, dataService) {
 
     var directive = {
       restrict: 'EA',
-      templateUrl: 'http://localhost:3000/components/textInput/textInput.tpl.html',
+      templateUrl: 'http://localhost:3000/components/library/contactTile/contactTile.tpl.html',
       compile: compileFn,
       scope: {
-        name: '@',
-        inline: '@',
-        label: '@',
-        required: '@',
-        width: '@'
+        contactInfo: '='
       },
-      controller: 'InputCtrl',
-      controllerAs: 'input',
+      controller: function(){},
+      controllerAs: 'cTile',
       bindToController: true
     };
 
@@ -39,7 +35,7 @@
       };
 
       function postLink(scope, element, attrs) {
-        scope.input.data = dataService;
+
       };
     };
   };

@@ -1,0 +1,16 @@
+.pw-button .glyphicon {
+  padding: 10px;
+  border: none;
+  font-size: 20px;
+  color: rgba(0,0,0,0.4);
+}
+
+.pw-button .glyphicon:hover {
+  border-radius: 100%;
+  color: rgba(0,0,0,0.7);
+}
+
+.pw-button .glyphicon:active {
+  outline: 0;
+  color: rgb(0,0,0);
+}

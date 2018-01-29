@@ -49,15 +49,31 @@
         },
         {
           "label": '',
-          "type": 'button',
-          "cb": 'editContact',
-          "class": "glyphicon glyphicon-pencil"
+          "type": 'directive',
+          "dirName": 'button',
+          "dirArgs": [
+            {
+              attr: 'class-list',
+              value: 'glyphicon glyphicon-pencil'
+            }
+          ],
+          "cb": 'editContact'
         },
         {
           "label": '',
-          "type": 'button',
-          "cb": 'deleteContact',
-          "class": "glyphicon glyphicon-trash"
+          "type": 'directive',
+          "dirName": 'button',
+          "dirArgs": [
+            {
+              attr: 'cb',
+              value: 'table.cbList.deleteContact(data)'
+            },
+            {
+              attr: 'class-list',
+              value: 'glyphicon glyphicon-trash'
+            }
+          ],
+          "cb": 'deleteContact'
         }
       ];
     };

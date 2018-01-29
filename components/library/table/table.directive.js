@@ -11,10 +11,10 @@
 
     var directive = {
       restrict: 'EA',
-      templateUrl: 'http://localhost:3000/components/table/table.tpl.html',
+      templateUrl: 'http://localhost:3000/components/library/table/table.tpl.html',
       compile: compileFn,
       scope: {
-        cbList: '=',
+        cbList: '&',
         data: '=',
         layout: '='
       },

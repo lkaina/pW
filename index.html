@@ -28,7 +28,7 @@
 
 <body ng-app="pwApp" ng-controller="AppCtrl as app">
   <header class="clearfix">
-    <button class="pull-right" ng-click="app.addContact()">Add Contact</button>
+    <pw-button label="Add Contact" class-list="pull-right btn btn-primary" cb="app.addContact()"></pw-button>
   </header>
   <pw-table data="app.data.allData.contactsList" layout="app.data.allData.contactsLayout" cb-list="app.tableCbList"></pw-table>
 

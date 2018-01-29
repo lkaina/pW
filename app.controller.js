@@ -53,6 +53,7 @@
         size: 'lg',
         windowClass: 'add-contact'
       };
+      var modalInstance = $uibModal.open(modalProperties);
     };
 
     function saveContact(contactInfo) {

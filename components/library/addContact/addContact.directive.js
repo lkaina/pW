@@ -11,7 +11,7 @@
 
     var directive = {
       restrict: 'EA',
-      templateUrl: 'http://localhost:3000/components/addContact/addContact.tpl.html',
+      templateUrl: 'http://localhost:3000/components/library/addContact/addContact.tpl.html',
       compile: compileFn,
       scope: {
         contactInfo: '=',
