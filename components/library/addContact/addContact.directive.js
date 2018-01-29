@@ -14,12 +14,10 @@
       templateUrl: 'http://localhost:3000/components/library/addContact/addContact.tpl.html',
       compile: compileFn,
       scope: {
+        close: '&',
         contactInfo: '=',
         saveContact: '&'
-      },
-      controller: function() {},
-      controllerAs: 'add',
-      bindToController: true
+      }
     };
 
     return directive;
@@ -27,16 +25,12 @@
     function compileFn(tElement, tAttrs) {
 
       return {
-        pre: preLink,
         post: postLink
       };
 
-      function preLink(scope, element, attrs) {
-
-      };
-
       function postLink(scope, element, attrs) {
-        scope.add.data = dataService;
+        scope.data = dataService;
+        scope.data.allData.newContact = scope.contactInfo;
       };
     };
   };

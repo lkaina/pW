@@ -29,10 +29,10 @@
     return directive;
 
     function compileFn(tElement, tAttrs) {
-
+      const dataPrefix = 'input.data.';
       let el = tElement.find('input');
 
-      el.attr('ng-model', tAttrs.model);
+      el.attr('ng-model', dataPrefix + tAttrs.model);
       if (tAttrs.required) el.attr('required', true);
 
       return {

@@ -28,12 +28,19 @@
       var modalProperties = {
         animation: true,
         backdrop: 'static',
-        template: '<pw-add-contact save-contact="app.saveContact(contactInfo)"></pw-add-contact>',
-        keyboard: true,
-        size: 'lg',
+        template: '<pw-add-contact save-contact="add.saveContact(contactInfo)" close="add.close()"></pw-add-contact>',
+        controller: 'AddContactCtrl',
+        controllerAs: 'add',
+        bindToController: true,
+        resolve: {
+          contactInfo: null,
+          saveContact: function() { return app.saveContact; }
+        },
+        keyboard: false,
+        size: 'md',
         windowClass: 'add-contact'
       };
-      var modalInstance = $uibModal.open(modalProperties);
+      $uibModal.open(modalProperties);
     };
 
     function deleteContact(contact) {
@@ -47,28 +54,37 @@
       var modalProperties = {
         animation: true,
         backdrop: 'static',
-        template: '<pw-add-contact save-contact="app.saveContact(contactInfo)" contact-info="addContact.contactInfo"></pw-add-contact>',
-        keyboard: false,
+        template: '<pw-add-contact save-contact="add.saveContact(contactInfo)" close="add.close()" contact-info="add.contactInfo"></pw-add-contact>',
+        controller: 'AddContactCtrl',
+        controllerAs: 'add',
+        bindToController: true,
         resolve: {
-          contactInfo: contact
+          contactInfo: contact,
+          saveContact: function() { return app.saveContact; }
         },
-        size: 'lg',
+        keyboard: false,
+        size: 'md',
         windowClass: 'add-contact'
       };
-      var modalInstance = $uibModal.open(modalProperties);
+      $uibModal.open(modalProperties);
     };
 
     function saveContact(contactInfo) {
-      dataService.saveContact(contactInfo)
-        .then(function(response) {
-        response.contact = response.name;
-        if (response.company) response.contact += ' at ' + response.company;
-        if (response.email) response.contact += '\n' + response.email;
-          dataService.allData.contactsList.push(response);
-        })
-        .catch(function(error) {
-          console.log('error saving contact info: ', error);
-        })
+      contactInfo.id = app.data.allData.contactsList.length + 1;
+      contactInfo.imgUrl = "http://lorempixel.com/40/40/transport"
+      app.data.allData.contactsList.push(contactInfo);
+      app.data.allData.newContact = null;
+      this.$close();
+      // dataService.saveContact(contactInfo)
+      //   .then(function(response) {
+      //   response.contact = response.name;
+      //   if (response.company) response.contact += ' at ' + response.company;
+      //   if (response.email) response.contact += '\n' + response.email;
+      //     dataService.allData.contactsList.push(response);
+      //   })
+      //   .catch(function(error) {
+      //     console.log('error saving contact info: ', error);
+      //   })
     };
   };
 })();

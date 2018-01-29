@@ -125,12 +125,19 @@
       var modalProperties = {
         animation: true,
         backdrop: 'static',
-        template: '<pw-add-contact save-contact="app.saveContact(contactInfo)"></pw-add-contact>',
-        keyboard: true,
-        size: 'lg',
+        template: '<pw-add-contact save-contact="add.saveContact(contactInfo)" close="add.close()"></pw-add-contact>',
+        controller: 'AddContactCtrl',
+        controllerAs: 'add',
+        bindToController: true,
+        resolve: {
+          contactInfo: null,
+          saveContact: function() { return app.saveContact; }
+        },
+        keyboard: false,
+        size: 'md',
         windowClass: 'add-contact'
       };
-      var modalInstance = $uibModal.open(modalProperties);
+      $uibModal.open(modalProperties);
     };
 
     function deleteContact(contact) {
@@ -144,28 +151,37 @@
       var modalProperties = {
         animation: true,
         backdrop: 'static',
-        template: '<pw-add-contact save-contact="app.saveContact(contactInfo)" contact-info="addContact.contactInfo"></pw-add-contact>',
-        keyboard: false,
+        template: '<pw-add-contact save-contact="add.saveContact(contactInfo)" close="add.close()" contact-info="add.contactInfo"></pw-add-contact>',
+        controller: 'AddContactCtrl',
+        controllerAs: 'add',
+        bindToController: true,
         resolve: {
-          contactInfo: contact
+          contactInfo: contact,
+          saveContact: function() { return app.saveContact; }
         },
-        size: 'lg',
+        keyboard: false,
+        size: 'md',
         windowClass: 'add-contact'
       };
-      var modalInstance = $uibModal.open(modalProperties);
+      $uibModal.open(modalProperties);
     };
 
     function saveContact(contactInfo) {
-      dataService.saveContact(contactInfo)
-        .then(function(response) {
-        response.contact = response.name;
-        if (response.company) response.contact += ' at ' + response.company;
-        if (response.email) response.contact += '\n' + response.email;
-          dataService.allData.contactsList.push(response);
-        })
-        .catch(function(error) {
-          console.log('error saving contact info: ', error);
-        })
+      contactInfo.id = app.data.allData.contactsList.length + 1;
+      contactInfo.imgUrl = "http://lorempixel.com/40/40/transport"
+      app.data.allData.contactsList.push(contactInfo);
+      app.data.allData.newContact = null;
+      this.$close();
+      // dataService.saveContact(contactInfo)
+      //   .then(function(response) {
+      //   response.contact = response.name;
+      //   if (response.company) response.contact += ' at ' + response.company;
+      //   if (response.email) response.contact += '\n' + response.email;
+      //     dataService.allData.contactsList.push(response);
+      //   })
+      //   .catch(function(error) {
+      //     console.log('error saving contact info: ', error);
+      //   })
     };
   };
 })();
@@ -188,8 +204,28 @@
     _init();
 
     function _init() {
+
     };
 
+  };
+})();
+
+
+(function() {
+  'use strict'
+
+  angular
+    .module('pwComponents')
+    .controller('AddContactCtrl', AddContactCtrl);
+
+  AddContactCtrl.$inject = ['dataService', '$uibModalInstance', 'saveContact', 'contactInfo'];
+
+  function AddContactCtrl(dataService, $uibModalInstance, saveContact, contactInfo) {
+    var add = this;
+
+    add.close = $uibModalInstance.close;
+    add.saveContact = saveContact;
+    add.contactInfo = contactInfo;
   };
 })();
 
@@ -210,12 +246,10 @@
       templateUrl: 'http://localhost:3000/components/library/addContact/addContact.tpl.html',
       compile: compileFn,
       scope: {
+        close: '&',
         contactInfo: '=',
         saveContact: '&'
-      },
-      controller: function() {},
-      controllerAs: 'add',
-      bindToController: true
+      }
     };
 
     return directive;
@@ -223,16 +257,12 @@
     function compileFn(tElement, tAttrs) {
 
       return {
-        pre: preLink,
         post: postLink
       };
 
-      function preLink(scope, element, attrs) {
-
-      };
-
       function postLink(scope, element, attrs) {
-        scope.add.data = dataService;
+        scope.data = dataService;
+        scope.data.allData.newContact = scope.contactInfo;
       };
     };
   };
@@ -486,10 +516,10 @@
     return directive;
 
     function compileFn(tElement, tAttrs) {
-
+      const dataPrefix = 'input.data.';
       let el = tElement.find('input');
 
-      el.attr('ng-model', tAttrs.model);
+      el.attr('ng-model', dataPrefix + tAttrs.model);
       if (tAttrs.required) el.attr('required', true);
 
       return {
