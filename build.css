@@ -1,5 +1,12 @@
+body {
+  background: deepskyblue;
+}
+
 header {
   padding: 20px;
+  box-shadow: 0 1px 5px;
+  position: relative;
+  z-index: 10;
 }
 
 
@@ -47,8 +54,16 @@ header {
 }
 
 
+.pw-table {
+  background: #fff;
+}
+
 .pw-table th {
   font-size: 1.2em;
+}
+
+.pw-table .col-sort-btn {
+  text-decoration: none;
 }
 
 

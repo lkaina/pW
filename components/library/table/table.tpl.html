@@ -2,11 +2,11 @@
   <table class="table">
     <thead class="table-labels">
       <tr>
-        <th ng-repeat="label in ::table.layout">{{ ::label.label }}</th>
+        <th ng-repeat="label in ::table.layout"><a role="button" class="col-sort-btn" ng-click="table.sortReverse = table.sort === label.sort ? !table.sortReverse : false; table.sort = label.sort;">{{ ::label.label }}</a></th>
       </tr>
     </thead>
     <tbody class="table-content">
-      <tr ng-repeat="row in table.data" ng-init="rowNum = $index">
+      <tr ng-repeat="row in table.data | orderBy:table.sort:table.sortReverse" ng-init="rowNum = $index">
         <td ng-repeat="col in ::table.layout" ng-init="colNum = $index">
           <div ng-if="table.layout[colNum].type !== 'text'">
             <pw-assign type="{{ table.layout[colNum].dirName }}" args="table.layout[colNum].dirArgs" data="row" cb="table.cbList()[table.layout[colNum].cb]"></pw>
@@ -14,9 +14,6 @@
           <div ng-if="table.layout[colNum].type === 'text'">
             <p class="table-cell-text">{{ row[table.layout[colNum].key] }}</p>
           </div>
-          <!-- <div ng-if="table.layout[colNum].type === 'button'">
-            <button ng-class="table.layout[colNum].class" ng-click="table.layout[colNum].cb()">{{ row[table.layout[colNum].label] }}</button>
-          </div> -->
         </td>
       </tr>
     </tbody>

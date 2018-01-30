@@ -1,3 +1,11 @@
+.pw-table {
+  background: #fff;
+}
+
 .pw-table th {
   font-size: 1.2em;
+}
+
+.pw-table .col-sort-btn {
+  text-decoration: none;
 }
