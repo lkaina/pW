@@ -33,7 +33,10 @@
       let el = tElement.find('input');
 
       el.attr('ng-model', dataPrefix + tAttrs.model);
-      if (tAttrs.required) el.attr('required', true);
+      if (tAttrs.required) {
+        el.attr('required', true);
+        let label = tElement.find('label').addClass('required');
+      }
 
       return {
         pre: preLink,

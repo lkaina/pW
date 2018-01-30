@@ -67,3 +67,8 @@ header {
 }
 
 
+label.required:after {
+  content: "*";
+  color: red;
+  margin-left: 3px;
+}
