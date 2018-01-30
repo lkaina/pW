@@ -27,12 +27,6 @@
     function _setupContacts(contactsList) {
       dataService.allData.contactsLayout = [
         {
-          "label": 'Title',
-          "type": 'text',
-          "key": 'title',
-          "sort": 'title'
-        },
-        {
           "label": 'Contacts',
           "type": 'directive',
           "dirName": 'contact-tile',
@@ -43,6 +37,12 @@
             }
           ],
           "sort": 'name'
+        },
+        {
+          "label": 'Title',
+          "type": 'text',
+          "key": 'title',
+          "sort": 'title'
         },
         {
           "label": 'Group',
